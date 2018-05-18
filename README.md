@@ -1,7 +1,7 @@
 # Create Your Own Horizontal (& Vertical) Slider/Picker
 <p>Recently at Reali we needed to create a Horizontal Slider. I was looking around the web and learned what's the minimum skeleton your code need to have. All the rest - you can customize.</p>
 
-<img src="https://github.com/nbtk123/Horizontal-Vertical-Slider-Picker/blob/master/docs/horizontal-slider.gif" width=200/>
+<img src="https://cdn-images-1.medium.com/max/800/1*ekbM1nDCBDeU6GO8gb3u2w.gif" width=200/>
 
 ## What is the Picker functionality?
 <p>A Slider must have the following functionality:
