@@ -44,10 +44,16 @@ class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
     private fun scaleDownView() {
         val mid = width / 2.0f
         for (i in 0 until childCount) {
+
+            // Calculating the distance of the child from the center
             val child = getChildAt(i)
             val childMid = (getDecoratedLeft(child) + getDecoratedRight(child)) / 2.0f
             val distanceFromCenter = Math.abs(mid - childMid)
+
+            // The scaling formula
             val scale = 1-Math.sqrt((distanceFromCenter/width).toDouble()).toFloat()*0.66f
+
+            // Set scale to view
             child.scaleX = scale
             child.scaleY = scale
         }
