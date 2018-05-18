@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.LinearSnapHelper
 import android.support.v7.widget.RecyclerView
 
+
 /**
  * Created by nbtk on 5/4/18.
  */
@@ -25,39 +26,30 @@ class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
         LinearSnapHelper().attachToRecyclerView(recyclerView)
     }
 
-    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State?) {
+    override fun onLayoutChildren(recycler: RecyclerView.Recycler?, state: RecyclerView.State) {
         super.onLayoutChildren(recycler, state)
+        scaleDownView()
     }
 
     override fun scrollHorizontallyBy(dx: Int, recycler: RecyclerView.Recycler?, state: RecyclerView.State?): Int {
-        return super.scrollHorizontallyBy(dx, recycler, state)
+        if (orientation == LinearLayoutManager.HORIZONTAL) {
+            val scrolled = super.scrollHorizontallyBy(dx, recycler, state)
+            scaleDownView()
+            return scrolled
+        } else {
+            return 0
+        }
     }
 
-    override fun smoothScrollToPosition(recyclerView: RecyclerView?, state: RecyclerView.State?, position: Int) {
-
-        // smoothScrollToPosition(...) scrolls the recyclerview to the beginning (or end) of the view
-        // And then snapping creates another scroll.
-        // We can prevent the second scroll (snap) if we calculate and scroll directly to the view's center.
-
-        try {
-
-            // findViewByPosition(...) gives us the View instance that will be in the given adapter position.
-            val child = findViewByPosition(position)
-
-            // Child center related to recyclerView dimensions - including padding, margin, scaling, whatever.
-            val childCenter = (getDecoratedRight(child) - getDecoratedLeft(child))/2 + getDecoratedLeft(child)
-
-            // RecyclerView center.
-            val recyclerViewCenter = getRecyclerViewCenterX()
-
-            // The exact distance we need to scroll.
-            val distanceToScroll = childCenter - recyclerViewCenter
-
-            // Smooth scroll
-            recyclerView?.smoothScrollBy(distanceToScroll, 0)
-
-        } catch (e: Exception) {
-            super.smoothScrollToPosition(recyclerView, state, position)
+    private fun scaleDownView() {
+        val mid = width / 2.0f
+        for (i in 0 until childCount) {
+            val child = getChildAt(i)
+            val childMid = (getDecoratedLeft(child) + getDecoratedRight(child)) / 2.0f
+            val distanceFromCenter = Math.abs(mid - childMid)
+            val scale = 1-Math.sqrt((distanceFromCenter/width).toDouble()).toFloat()*0.66f
+            child.scaleX = scale
+            child.scaleY = scale
         }
     }
 
@@ -81,7 +73,7 @@ class SliderLayoutManager(context: Context?) : LinearLayoutManager(context) {
                 }
             }
 
-            // Notify the developer which item is centered
+            // Notify on item selection
             callback?.onItemSelected(position)
         }
     }
