@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/horizontalpicker.iml" filepath="$PROJECT_DIR$/horizontalpicker.iml" />
+      <module fileurl="file:///mnt/hgfs/projects/horizontalpicker/app/app.iml" filepath="/mnt/hgfs/projects/horizontalpicker/app/app.iml" />
+      <module fileurl="file:///mnt/hgfs/projects/horizontalpicker/horizontalpicker.iml" filepath="/mnt/hgfs/projects/horizontalpicker/horizontalpicker.iml" />
     </modules>
   </component>
 </project>
